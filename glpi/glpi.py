@@ -234,20 +234,13 @@ class GlpiService(object):
         if self.session is not None:
             # URL should be like: http://glpi.example.com/apirest.php
             full_url = self.url + '/killSession'
-            auth = None
-
             headers = {
                     "App-Token": self.app_token,
                     "Content-Type": "application/json",
                     "Session-Token": self.session
                 }
 
-            if self.token_auth is not None:
-                auth = self.token_auth
-            else:
-                auth = (self.username, self.password)
-
-            r = requests.request('GET', full_url, auth=auth, headers=headers)
+            r = requests.request('GET', full_url, headers=headers)
 
             try:
                 if r.status_code == 200:
